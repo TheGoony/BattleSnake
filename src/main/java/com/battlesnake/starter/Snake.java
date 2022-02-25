@@ -102,10 +102,10 @@ public class Snake {
         public Map<String, String> index() {
             Map<String, String> response = new HashMap<>();
             response.put("apiversion", "1");
-            response.put("author", ""); // TODO: Your Battlesnake Username
+            response.put("author", "Goony"); // TODO: Your Battlesnake Username
             response.put("color", "#696696"); // TODO: Personalize
-            response.put("head", "default"); // TODO: Personalize
-            response.put("tail", "default"); // TODO: Personalize
+            response.put("head", "silly"); // TODO: Personalize
+            response.put("tail", "bolt"); // TODO: Personalize
             return response;
         }
 
@@ -228,7 +228,7 @@ public class Snake {
             if(x+1 > width-1) {
                 possibleMoves.remove("right");
             }
-            if (x-1<0) {
+            if (x-1 < 0) {
                 possibleMoves.remove("left");
             }
             if (y-1 < 0) {
@@ -237,6 +237,11 @@ public class Snake {
             if (y+1 > height-1) {
                 possibleMoves.remove("up");
             }
+        }
+
+        public void avoidOwnBody(JsonNode head, JsonNode board, ArrayList<String> possibleMoves){
+
+
         }
 
         /**
