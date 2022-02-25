@@ -225,7 +225,7 @@ public class Snake {
             int height = board.get("height").asInt();
             int width = board.get("width").asInt();
 
-            if(x+1 > width) {
+            if(x+1 > width-1) {
                 possibleMoves.remove("right");
             }
             if (x-1<0) {
@@ -234,7 +234,7 @@ public class Snake {
             if (y-1 < 0) {
                 possibleMoves.remove("down");
             }
-            if (y+1 > height) {
+            if (y+1 > height-1) {
                 possibleMoves.remove("up");
             }
         }
