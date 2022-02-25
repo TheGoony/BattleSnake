@@ -227,11 +227,14 @@ public class Snake {
 
             if(x+1 > width) {
                 possibleMoves.remove("right");
-            } else if (x-1<0) {
+            }
+            if (x-1<0) {
                 possibleMoves.remove("left");
-            } else if (y-1 < 0) {
+            }
+            if (y-1 < 0) {
                 possibleMoves.remove("down");
-            } else if (y+1 > height) {
+            }
+            if (y+1 > height) {
                 possibleMoves.remove("up");
             }
         }
