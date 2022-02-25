@@ -14,9 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import static spark.Spark.port;
-import static spark.Spark.post;
-import static spark.Spark.get;
+import static spark.Spark.*;
 
 /**
  * This is a simple Battlesnake server written in Java.
@@ -161,11 +159,13 @@ public class Snake {
 
             JsonNode head = moveRequest.get("you").get("head");
             JsonNode body = moveRequest.get("you").get("body");
+            JsonNode board = moveRequest.get("board");
 
             ArrayList<String> possibleMoves = new ArrayList<>(Arrays.asList("up", "down", "left", "right"));
 
             // Don't allow your Battlesnake to move back in on it's own neck
             avoidMyNeck(head, body, possibleMoves);
+            avoidWall(head, board, possibleMoves);
 
             // TODO: Using information from 'moveRequest', find the edges of the board and
             // don't
@@ -213,6 +213,25 @@ public class Snake {
             } else if (neck.get("y").asInt() < head.get("y").asInt()) {
                 possibleMoves.remove("down");
             } else if (neck.get("y").asInt() > head.get("y").asInt()) {
+                possibleMoves.remove("up");
+            }
+        }
+
+        public void avoidWall(JsonNode head, JsonNode board, ArrayList<String> possibleMoves) {
+
+            int x = head.get("x").asInt();
+            int y = head.get("y").asInt();
+
+            int height = board.get("height").asInt();
+            int width = board.get("width").asInt();
+
+            if(x+1 > width) {
+                possibleMoves.remove("right");
+            } else if (x-1<0) {
+                possibleMoves.remove("left");
+            } else if (y-1 < 0) {
+                possibleMoves.remove("down");
+            } else if (y+1 > height) {
                 possibleMoves.remove("up");
             }
         }
